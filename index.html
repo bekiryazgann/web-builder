@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Web Builder </title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+<section class="builder">
+    <div class="sidebar">
+        <div class="title">
+            <i class="fal fa-layer-group"></i>
+            <h3> Document Map </h3>
+        </div>
+        <div class="sideContent">
+            <div class="map">
+
+            </div>
+            <button class="addNewSection">
+                <i class="fal fa-plus"></i>
+                <span>Yeni Bölüm Ekle</span>
+            </button>
+            <div class="options">
+                <select>
+                    <option value="" selected> -- Seç -- </option>
+                    <option value="header-1"> Header 1 </option>
+                    <option value="footer-1"> Footer 1 </option>
+                    <option value="login-screen"> Giriş Ekranı </option>
+                    <option value="banner">Banner</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="tool-bar"></div>
+        <div class="iframe-container">
+            <iframe class="iframe"></iframe>
+        </div>
+    </div>
+</section>
+
+<script src="./assets/js/components.js"></script>
+<script src="./assets/js/builder.js"></script>
+<script src="./assets/js/main.js"></script>
+</body>
+</html>
