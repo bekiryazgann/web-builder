@@ -1,100 +1,107 @@
-class Builder {
-    contents = {
-        "header": {
-            "component" : "header-1"
-        },
-        "footer": {
-            "component": "footer-1",
-            "copyright": "All Right Reserved &copy; 2022",
-            "logo": "https://i0.wp.com/leeshia.com/wp-content/uploads/2023/02/lee-shia.jpg?fit=420%2C500&ssl=1",
-            "menu": [
-                {
-                    "title": "Kurumsal",
-                    "items": {
-                        "https://leeshia.com/about": "Hakkımızda",
-                        "https://leeshia.com/blog": "Blog",
-                        "https://leeshia.com/musteri-destek": "Müşteri Destek",
-                        "https://leeshia.com/contact": "İletişim"
-                    }
-                },
-                {
-                    "title": "Hızlı Menü",
-                    "items": {
-                        "https://leeshia.com/urun-dogrulama": "Ürün Doğrulama",
-                        "https://leeshia.com/gizlilik-politikasi": "Gizlilik Politikası",
-                        "https://leeshia.com/mesafeli-satis-sozlesmesi": "Mesafeli Satış Sözleşmesi",
-                        "https://leeshia.com/kvkk": "KVKK"
-                    }
-                }
-            ]
-        }
-    };
+import iframe from './utils/iframe.js';
+import mapData from "./utils/data.js";
+
+export default class Builder {
+
+    contents = mapData();
 
     constructor() {
-        this.iframe = document.querySelector('.iframe');
         this.run();
+        this.iframe = new iframe(document.querySelector('.iframe'))
     }
 
-    run(){
-        this.addNewSectionListen();
-        this.render();
+    run() {
+        this.listener();
+        this.mapRender();
+        this.drag();
     }
 
-    srcDoc(content = '', style = '', script = '') {
+    mapRender() {
+        let map = document.querySelector('.sideContent .map');
 
-        if (script !== ''){
-            script = `<script>${script}</script>`;
-        }
+        let content = '';
 
-        if (style !== ''){
-            style = `<style>${style}</style>`;
-        }
+        Object.entries(this.contents).forEach(([key, value]) => {
+            content += `
+                <li>
+                    <div class="mapTitle">
+                        <span> ${value.name} </span>
+                        <i class="fal fa-ellipsis-v"></i>
+                    </div>
+                    <div class="mapContent">
+                        Buraya İçerik Gelecek
+                    </div>
+                </li>
+            `;
+        });
 
-        this.iframe.srcdoc = `
-            <!doctype html>
-            <html lang="en">
-            <head>
-            <meta charset="UTF-8">
-                 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-                 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-                 <title>Document</title>
-                 <style>*{margin:0;border:0;padding:0;text-decoration:none;list-style:none;box-sizing:border-box}input:focus{outline:0}body,html{height:100%;width:100%}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}</style>
-            </head>
-            <body>
-                ${content}
-                
-                ${script}
-            </body>
-            </html>`;
-    }
-
-    render(){
+        map.innerHTML = '<ul>' + content + '</ul>';
 
     }
 
-
-    addNewSectionListen() {
+    listener() {
         const addNewSection = document.querySelector('.addNewSection');
         const options = document.querySelector('.options select');
 
-        if (options.value === ''){
-            addNewSection.disabled = true;
-        } else {
-            addNewSection.disabled = false;
-        }
+        addNewSection.disabled = (options.value);
 
         options.addEventListener('change', e => {
-            if (e.target.value === ''){
-                addNewSection.disabled = true;
-            } else {
-                addNewSection.disabled = false;
-            }
+            addNewSection.disabled = (e.target.value === '');
         })
-
         addNewSection.addEventListener('click', e => {
             console.log('tıkladı');
             Object.assign(this.contents, {});
-            this.render();
+        });
+    }
+
+    drag() {
+        var dragSrcEl = null;
+
+        const mapItems = document.querySelectorAll('.sideContent .map ul li');
+        mapItems.forEach(function (element) {
+            element.draggable = true;
+
+
+            element.addEventListener('dragstart', function (e) {
+                e.target.style.opacity = '0.4';
+
+                dragSrcEl = this;
+
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', e.target.innerHTML);
+            });
+
+            element.addEventListener('dragend', function (e) {
+                e.target.style.opacity = '1';
+
+                mapItems.forEach(elem => {
+                    elem.style.borderStyle = 'solid';
+                    elem.style.borderWidth = '1px';
+                });
+            })
+
+            element.addEventListener('dragover', e => {
+                e.preventDefault();
+            })
+
+            element.addEventListener('dragenter', e => {
+                e.target.style.borderStyle = 'dotted';
+            });
+
+            element.addEventListener('dragleave', function (e) {
+                e.target.style.borderStyle = 'solid';
+            });
+
+            element.addEventListener('drop', function (e) {
+                e.stopPropagation();
+
+                if (dragSrcEl !== this) {
+                    dragSrcEl.innerHTML = this.innerHTML;
+                    this.innerHTML = e.dataTransfer.getData('text/html');
+                }
+
+                return false;
+            });
         });
     }
 }

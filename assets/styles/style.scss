@@ -1,87 +1,141 @@
 @import "vars";
 @import "reset";
 
-.builder{
+.builder {
   padding: 20px;
   height: 100%;
   width: 100%;
   display: flex;
   align-items: start;
-  .sidebar{
+
+  .sidebar {
     width: 460px;
     border: 1px solid $borderColor;
     height: 100%;
     border-radius: $radius;
-    .title{
+
+    .title {
       border-bottom: 1px solid $borderColor;
       padding: 18px 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      i{
+
+      i {
         color: $textColor;
         font-size: 20px;
         margin-right: 10px;
       }
-      h3{
+
+      h3 {
         text-align: center;
         color: $textColor;
         font-weight: 700;
         font-size: 20px;
       }
     }
-    .sideContent{
-      height: 100%;
 
-      .addNewSection{
-        width: calc(100% - 40px);
-        margin: 20px;
-        padding: 10px;
-        border-radius: $radius;
-        text-align: center;
-        font-size: 18px;
-        background: $boxColor;
-        color: $textColor;
-        border: 1px solid transparent;
-        transition: 200ms all;
-        cursor: pointer;
-        &:hover{
-          border: 1px solid $borderColor;
-          background: transparent;
+    .sideContent {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .map {
+        flex: 1;
+
+        ul {
+          padding: 20px;
+
+          li {
+            margin-bottom: 20px;
+            cursor: pointer;
+            border: 1px solid $borderColor;
+            border-radius: $radius;
+            padding: 15px;
+            position: relative;
+
+            * {
+              border: 1px solid transparent !important;
+            }
+
+            .mapTitle {
+              color: $textColor;
+              font-weight: 600;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              i{
+                font-size: 30px;
+                color: $textColor;
+              }
+            }
+
+            .mapContent {
+              display: none;
+            }
+          }
         }
       }
 
-      .options{
-        margin: 0 20px;
-        width: calc(100% - 40px);
-        select{
-          width: 100%;
+      .otherContent {
+        height: 200px;
+
+        .addNewSection {
+          width: calc(100% - 40px);
+          margin: 20px;
           padding: 10px;
           border-radius: $radius;
+          text-align: center;
+          font-size: 18px;
           background: $boxColor;
           color: $textColor;
+          border: 1px solid transparent;
+          transition: 200ms all;
+          cursor: pointer;
+
+          &:hover {
+            border: 1px solid $borderColor;
+            background: transparent;
+          }
+        }
+
+        .options {
+          margin: 0 20px;
+          width: calc(100% - 40px);
+
+          select {
+            width: 100%;
+            padding: 10px;
+            border-radius: $radius;
+            background: $boxColor;
+            color: $textColor;
+          }
         }
       }
     }
   }
-  .content{
+
+  .content {
     flex: 1;
     margin-left: 20px;
     height: 100%;
 
-    .tool-bar{
+    .tool-bar {
       border: 1px solid $borderColor;
       border-radius: $radius;
       height: 61.5px;
       margin-bottom: 20px;
     }
-    .iframe-container{
+
+    .iframe-container {
       border: 1px solid $borderColor;
       border-radius: $radius;
       width: 100%;
       height: calc(100% - (61.5px + 20px));
       overflow: hidden;
-      iframe{
+
+      iframe {
         width: 100%;
         height: 100%;
         background: white;

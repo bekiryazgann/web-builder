@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,8 +9,8 @@
     <title> Web Builder </title>
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
-<body>
 
+<body>
 <section class="builder">
     <div class="sidebar">
         <div class="title">
@@ -17,22 +18,22 @@
             <h3> Document Map </h3>
         </div>
         <div class="sideContent">
-            <div class="map">
+            <div class="map"></div>
+            <div class="otherContent">
+                <button class="addNewSection">
+                    <i class="fal fa-plus"></i>
+                    <span>Yeni Bölüm Ekle</span>
+                </button>
+                <div class="options">
+                    <select>
+                        <option value="" selected> -- Seç --</option>
+                        <option value="header-1"> Header 1</option>
+                        <option value="footer-1"> Footer 1</option>
+                        <option value="login-screen"> Giriş Ekranı</option>
+                        <option value="banner">Banner</option>
+                    </select>
 
-            </div>
-            <button class="addNewSection">
-                <i class="fal fa-plus"></i>
-                <span>Yeni Bölüm Ekle</span>
-            </button>
-            <div class="options">
-                <select>
-                    <option value="" selected> -- Seç -- </option>
-                    <option value="header-1"> Header 1 </option>
-                    <option value="footer-1"> Footer 1 </option>
-                    <option value="login-screen"> Giriş Ekranı </option>
-                    <option value="banner">Banner</option>
-                </select>
-
+                </div>
             </div>
         </div>
     </div>
@@ -44,8 +45,8 @@
     </div>
 </section>
 
-<script src="./assets/js/components.js"></script>
-<script src="./assets/js/builder.js"></script>
-<script src="./assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<script type="module" src="assets/js/main.js"></script>
 </body>
+
 </html>
